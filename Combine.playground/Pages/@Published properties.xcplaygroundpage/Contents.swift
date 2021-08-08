@@ -25,7 +25,7 @@ final class FormViewController: UIViewController {
 		// subscribe to a @Published property using the $ wrapped accessor
         viewModel.$isSubmitAllowed
             .receive(on: DispatchQueue.main)
-            .print()
+//            .print()
             .assign(to: \.isEnabled, on: submitButton)
     }
 }

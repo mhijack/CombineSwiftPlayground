@@ -9,24 +9,6 @@ import Combine
  - ... operators can be chained to add processing steps
  */
 
-
-
-
-
-
-
-
-let justPublisher = Just("Combine")
-
-
-
-
-
-
-
-
-
-
 /*:
  ## Example: `map`
  - works like Swift's `map`
@@ -171,24 +153,12 @@ class LoginViewModel {
     public var password = CurrentValueSubject<String, Never>("")
     public var confirmPassword = CurrentValueSubject<String, Never>("")
     
-    public var isValid = false {
-        didSet {
-            print("Inputs are valid: \(isValid)")
-        }
-    }
+    public var isValid = false
 }
 
 let loginViewModel = LoginViewModel()
 Publishers
     .CombineLatest3(loginViewModel.username, loginViewModel.password, loginViewModel.confirmPassword)
     .map { (username, password, confirmPassword) in
-        return !username.isEmpty && !password.isEmpty && !confirmPassword.isEmpty && password == confirmPassword
+        return username 
     }
-    .assign(to: \.isValid, on: loginViewModel)
-
-loginViewModel.username.value = "jack chen"     // "Inputs are valid: false"
-loginViewModel.password.value = "123456"        // "Inputs are valid: false"
-loginViewModel.confirmPassword.value = "123456" // "Inputs are valid: true"
-Publishers.CombineLatest(<#T##a: _##_#>, <#T##b: _##_#>)
-Publishers.CombineLatest3(<#T##a: _##_#>, <#T##b: _##_#>, <#T##c: _##_#>)
-Publishers.CombineLatest4(<#T##a: _##_#>, <#T##b: _##_#>, <#T##c: _##_#>, <#T##d: _##_#>)

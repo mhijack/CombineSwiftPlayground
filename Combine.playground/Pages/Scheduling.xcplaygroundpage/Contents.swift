@@ -26,7 +26,7 @@ let subscription = publisher
 	.sink { value in
 		print("Received value: \(value) on thread \(Thread.current)")
 		if value == "Four" {
-			firstStepDone.signal()
+			firstStepDone.signal() /// +1 on semaphore value, signaling our work here in this thread is finished. Other resource if free to use this thread now.
 		}
 }
 

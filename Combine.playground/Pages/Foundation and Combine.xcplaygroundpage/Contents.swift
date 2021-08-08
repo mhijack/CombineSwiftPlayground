@@ -21,7 +21,15 @@ URLSession.shared.dataTaskPublisher(for: URL(string: "https://www.avanderlee.com
 /*:
  ### A Publisher for notifications
  */
-NotificationCenter.default.publisher(for: .NSSystemClockDidChange)
+NotificationCenter.default
+    .publisher(for: .NSCalendarDayChanged)
+    .sink { notification in
+        print(notification)
+    }
+NotificationCenter.default.post(name: .NSCalendarDayChanged, object: nil)
+NotificationCenter.default.post(name: .NSCalendarDayChanged, object: nil)
+NotificationCenter.default.post(name: .NSCalendarDayChanged, object: nil)
+
 
 /*:
  ### KeyPath binding to NSObject instances
@@ -30,6 +38,7 @@ let ageLabel = UILabel()
 Just(28)
     .map { "Age is \($0)" }
     .assign(to: \.text, on: ageLabel)
+print(ageLabel)
 
 /*:
 ### A Timer publisher exposing Cocoa's `Timer`
@@ -39,5 +48,8 @@ Just(28)
 let publisher = Timer
 	.publish(every: 1.0, on: .main, in: .common)
 	.autoconnect()
+let timerSubscription = publisher.sink { value in
+    print(value)
+}
 
 //: [Next](@next)
